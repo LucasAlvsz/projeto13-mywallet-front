@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
+
+import LogoAnimation from "../../components/LogoAnimation"
+
 import * as S from "./styles"
 
 export default function SingUp() {
@@ -14,6 +17,7 @@ export default function SingUp() {
 
 	return (
 		<S.SingUp>
+			<LogoAnimation style={S.LogoStyle} />
 			<h1>MyWallet</h1>
 			<S.SingUpForm onSubmit={dataUserValidate} inputStatus={inputStatus}>
 				<input

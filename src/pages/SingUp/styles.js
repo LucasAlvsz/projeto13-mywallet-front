@@ -59,3 +59,7 @@ export const SingUpForm = styled.form`
 		line-height: 23px;
 	}
 `
+export const LogoStyle = {
+	width: "100px",
+	height: "100px",
+}

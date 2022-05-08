@@ -38,6 +38,8 @@ export const SingInForm = styled.form`
 		font-size: 20px;
 		line-height: 23px;
 		font-weight: 400;
+		background: ${({ isLoading }) => (isLoading ? "#d69ccf" : "#fff")};
+		pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
 		&::placeholder {
 			color: #000000;
 		}
@@ -51,5 +53,20 @@ export const SingInForm = styled.form`
 		font-size: 20px;
 		font-weight: 700;
 		line-height: 23px;
+		cursor: ${({ isLoading }) => (isLoading ? "wait" : "pointer")};
 	}
 `
+export const ErrorWarning = styled.p`
+	font-family: "Raleway", sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 18px;
+	text-align: center;
+	color: #fff;
+	margin-top: 36px;
+`
+
+export const LogoStyle = {
+	width: "100px",
+	height: "100px",
+}

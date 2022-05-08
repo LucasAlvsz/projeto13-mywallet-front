@@ -1,19 +1,29 @@
+import { useNavigate } from "react-router-dom"
 import { ReactComponent as PlusButton } from "../../assets/icons/plus.svg"
 import { ReactComponent as MinusButton } from "../../assets/icons/minus.svg"
 
 import * as S from "./styles"
 
 export default function Footer() {
+	const navigate = useNavigate()
 	return (
 		<S.Footer>
 			<S.FlowContainer>
-				<PlusButton />
+				<PlusButton
+					onClick={() => {
+						navigate("/newflow", { state: { type: "inflow" } })
+					}}
+				/>
 				<p>
 					Nova <br /> Entrada
 				</p>
 			</S.FlowContainer>
 			<S.FlowContainer>
-				<MinusButton />
+				<MinusButton
+					onClick={() => {
+						navigate("/newflow", { state: { type: "outflow" } })
+					}}
+				/>
 				<p>
 					Nova <br /> Saida
 				</p>
