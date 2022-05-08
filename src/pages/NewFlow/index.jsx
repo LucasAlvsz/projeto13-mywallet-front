@@ -10,9 +10,9 @@ export default function NewFlow() {
 	const navigate = useNavigate()
 	const { user, setUser } = useContext(AuthContext)
 	const {
-		state: { type, total, req, flowId },
+		state: { type, total, req, flowId, description, value },
 	} = useLocation()
-	const [flowData, setFlowData] = useState({ type })
+	const [flowData, setFlowData] = useState({ type, description, value })
 	useEffect(() => {
 		if (localStorage.getItem("user"))
 			setUser(JSON.parse(localStorage.getItem("user")))
@@ -65,6 +65,7 @@ export default function NewFlow() {
 					step="any"
 					min="0.01"
 					required
+					value={req === "put" ? flowData.value : undefined}
 					onChange={e =>
 						setFlowData({ ...flowData, value: e.target.value })
 					}
@@ -73,6 +74,7 @@ export default function NewFlow() {
 					type="text"
 					placeholder="Descrição"
 					required
+					value={req === "put" ? flowData.description : undefined}
 					onChange={e =>
 						setFlowData({
 							...flowData,
@@ -80,6 +82,18 @@ export default function NewFlow() {
 						})
 					}
 				/>
+				{req === "put" ? (
+					<select
+						defaultValue={flowData.type}
+						onChange={e =>
+							setFlowData({ ...flowData, type: e.target.value })
+						}>
+						<option value="inflow">Entrada</option>
+						<option value="outflow">Saída</option>
+					</select>
+				) : (
+					""
+				)}
 				<button type="submit">
 					Salvar {type === "inflow" ? "entrada" : "saída"}
 				</button>

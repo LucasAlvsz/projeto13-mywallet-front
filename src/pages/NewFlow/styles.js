@@ -33,6 +33,20 @@ export const Main = styled.main`
 			margin: 0;
 		}
 	}
+	select {
+		width: 100%;
+		height: 58px;
+		border-radius: 5px;
+		font-size: 20px;
+		line-height: 23px;
+		font-weight: 700;
+		color: #000;
+		padding: 0px 10px;
+		margin-bottom: 13px;
+		&::placeholder {
+			font-weight: 400;
+		}
+	}
 	button {
 		width: 100%;
 		height: 46px;
