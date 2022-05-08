@@ -8,23 +8,33 @@ import LogoAnimation from "../../components/LogoAnimation"
 
 import * as S from "./styles"
 dotenv.config()
+console.log(dotenv.config())
 console.log(process.env)
 export default function SingIn() {
 	const navigate = useNavigate()
-	const { signIn, isLoading, errorWarning, setIsLoading, setErrorWarning } =
-		useContext(AuthContext)
+	const {
+		setUser,
+		user,
+		isLoading,
+		errorWarning,
+		setIsLoading,
+		setErrorWarning,
+	} = useContext(AuthContext)
 	const [dataUser, setDataUser] = useState({
 		email: "lucas@gmail.com",
 		password: "testes",
 	})
 	function singIn(e) {
 		e.preventDefault()
-		signIn(dataUser)
+		// signIn(dataUser)
 		axios
 			.post(`http://localhost:5000/singin`, dataUser)
-			.then(() => {
-				navigate("/flows")
+			.then(({ data }) => {
+				localStorage.setItem("user", JSON.stringify(data))
+				setUser(data)
+				console.log(data)
 				setIsLoading(false)
+				navigate("/flows")
 			})
 			.catch(({ response: { data } }) => {
 				console.log(data)

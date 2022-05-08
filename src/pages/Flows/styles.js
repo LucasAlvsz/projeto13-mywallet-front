@@ -16,6 +16,19 @@ export const FlowsContainer = styled.div`
 	border-radius: 5px;
 	margin-top: 22px;
 	padding: 23px 12px;
+	.total {
+		width: 100%;
+		position: absolute;
+		top: 45%;
+		font-family: "Raleway";
+		font-style: normal;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 23px;
+		text-align: center;
+		color: #868686;
+		padding-right: 23px;
+	}
 `
 export const FlowTotal = styled.div`
 	width: 100%;

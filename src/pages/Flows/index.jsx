@@ -10,7 +10,7 @@ import { AuthContext } from "../../providers/AuthProvider"
 import * as S from "./styles"
 
 export default function Flows() {
-	const [flows, setFlows] = useState(null)
+	const [flows, setFlows] = useState([])
 	const { user, setUser } = useContext(AuthContext)
 	useEffect(() => {
 		if (user) {
@@ -24,7 +24,8 @@ export default function Flows() {
 					let total = 0
 					data.forEach(({ value }) => (total += parseFloat(value)))
 					total = total.toFixed(2)
-					setFlows({ data, total })
+
+					setFlows({ data, ...(data.length && { total }) })
 				})
 				.catch(err => {
 					console.log(err)
@@ -38,8 +39,8 @@ export default function Flows() {
 		<>
 			<Header userName={user ? user.name : ""} />
 			<S.Main>
-				<S.FlowsContainer>
-					{flows
+				<S.FlowsContainer data={flows}>
+					{flows && flows.data
 						? flows.data.map(
 								({
 									flowId,
@@ -58,10 +59,17 @@ export default function Flows() {
 								)
 						  )
 						: ""}
-					<S.FlowTotal>
-						<p>Saldo</p>
-						<p>{flows ? flows.total : ""}</p>
-					</S.FlowTotal>
+					{flows && !flows.total ? (
+						<div className="total">
+							Não há registros de <br />
+							entrada ou saída
+						</div>
+					) : (
+						<S.FlowTotal>
+							<p>Saldo</p>
+							<p>{flows ? flows.total : ""}</p>
+						</S.FlowTotal>
+					)}
 				</S.FlowsContainer>
 			</S.Main>
 			<Footer />
