@@ -22,11 +22,15 @@ export default function NewFlow() {
 		console.log(flowData)
 		if (req === "post") {
 			axios
-				.post("http://localhost:5000/flows", flowData, {
-					headers: {
-						Authorization: `Bearer ${user.token}`,
-					},
-				})
+				.post(
+					"https://mywallet-api-project.herokuapp.com/flows",
+					flowData,
+					{
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+					}
+				)
 				.then(({ data }) => {
 					navigate("/flows")
 				})
@@ -35,11 +39,15 @@ export default function NewFlow() {
 				})
 		} else if (req === "put") {
 			axios
-				.put(`http://localhost:5000/flows/${flowId}`, flowData, {
-					headers: {
-						Authorization: `Bearer ${user.token}`,
-					},
-				})
+				.put(
+					`https://mywallet-api-project.herokuapp.com/flows/${flowId}`,
+					flowData,
+					{
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+					}
+				)
 				.then(() => {
 					navigate("/flows")
 				})
