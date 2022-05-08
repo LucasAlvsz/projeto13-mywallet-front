@@ -1,18 +1,30 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import axios from "axios"
 
 import LogoAnimation from "../../components/LogoAnimation"
 
 import * as S from "./styles"
 
 export default function SingUp() {
-	const [userData, setUserData] = useState({})
+	const navigate = useNavigate()
+	const [userData, setUserData] = useState()
 	const [inputStatus, setInputStatus] = useState({
 		isLoading: false,
 		isError: false,
 	})
 	const dataUserValidate = e => {
 		e.preventDefault()
+		const userDataReq = { ...userData, repeatPassword: userData.password }
+		axios
+			.post(`http://localhost:5000/singup`, userDataReq)
+			.then(({ data }) => {
+				console.log(data)
+				navigate("/singin")
+			})
+			.catch(({ response: { data } }) => {
+				console.log(data)
+			})
 	}
 
 	return (
@@ -48,18 +60,14 @@ export default function SingUp() {
 					type="password"
 					placeholder="Confirme a senha"
 					required
-					onChange={e =>
+					onChange={e => {
 						e.target.value !== userData.password
 							? setInputStatus({ ...inputStatus, isError: true })
 							: setInputStatus({
 									...inputStatus,
 									isError: false,
-							  }) &&
-							  setUserData({
-									...userData,
-									confirmPassword: e.target.value,
 							  })
-					}
+					}}
 				/>
 				<button type="submit">Cadastrar</button>
 			</S.SingUpForm>

@@ -11,6 +11,7 @@ import * as S from "./styles"
 
 export default function Flows() {
 	const [flows, setFlows] = useState([])
+	const [update, setUpdate] = useState(false)
 	const { user, setUser } = useContext(AuthContext)
 	useEffect(() => {
 		if (user) {
@@ -22,7 +23,11 @@ export default function Flows() {
 				})
 				.then(({ data }) => {
 					let total = 0
-					data.forEach(({ value }) => (total += parseFloat(value)))
+					data.forEach(({ type, value }) =>
+						type === "inflow"
+							? (total += parseFloat(value))
+							: (total -= parseFloat(value))
+					)
 					total = total.toFixed(2)
 
 					setFlows({ data, ...(data.length && { total }) })
@@ -32,7 +37,7 @@ export default function Flows() {
 				})
 		} else if (localStorage.getItem("user"))
 			setUser(JSON.parse(localStorage.getItem("user")))
-	}, [user])
+	}, [user, update])
 
 	function getFlows() {}
 	return (
@@ -51,10 +56,12 @@ export default function Flows() {
 								}) => (
 									<Flow
 										key={flowId}
+										flowId={flowId}
 										value={value}
 										description={description}
 										type={type}
 										date={date}
+										update={() => setUpdate(!update)}
 									/>
 								)
 						  )
@@ -65,14 +72,14 @@ export default function Flows() {
 							entrada ou saída
 						</div>
 					) : (
-						<S.FlowTotal>
+						<S.FlowTotal total={flows.total}>
 							<p>Saldo</p>
 							<p>{flows ? flows.total : ""}</p>
 						</S.FlowTotal>
 					)}
 				</S.FlowsContainer>
 			</S.Main>
-			<Footer />
+			<Footer total={flows.total} />
 		</>
 	)
 }

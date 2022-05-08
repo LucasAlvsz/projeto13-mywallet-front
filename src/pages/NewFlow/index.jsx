@@ -10,7 +10,7 @@ export default function NewFlow() {
 	const navigate = useNavigate()
 	const { user, setUser } = useContext(AuthContext)
 	const {
-		state: { type },
+		state: { type, total, req, flowId },
 	} = useLocation()
 	const [flowData, setFlowData] = useState({ type })
 	useEffect(() => {
@@ -18,33 +18,52 @@ export default function NewFlow() {
 			setUser(JSON.parse(localStorage.getItem("user")))
 		else navigate("/")
 	}, [])
-	function newFlow() {
+	function newFlow(req) {
 		console.log(flowData)
-		axios
-			.post("http://localhost:5000/flows", flowData, {
-				headers: {
-					Authorization: `Bearer ${user.token}`,
-				},
-			})
-			.then(() => {
-				navigate("/flows")
-			})
-			.catch(({ response: { data } }) => {
-				console.log(data)
-			})
+		if (req === "post") {
+			axios
+				.post("http://localhost:5000/flows", flowData, {
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+				})
+				.then(({ data }) => {
+					navigate("/flows")
+				})
+				.catch(({ response: { data } }) => {
+					console.log(data)
+				})
+		} else if (req === "put") {
+			axios
+				.put(`http://localhost:5000/flows/${flowId}`, flowData, {
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+				})
+				.then(() => {
+					navigate("/flows")
+				})
+				.catch(({ response: { data } }) => {
+					console.log(data)
+				})
+		}
 	}
 	return (
 		<S.Main>
-			<h1>Nova {type === "inflow" ? "Entrada" : "Saída"}</h1>
+			<h1>
+				{req === "post" ? "Nova " : "Editar "}
+				{type === "inflow" ? "entrada" : "saída"}
+			</h1>
 			<form
 				onSubmit={e => {
 					e.preventDefault()
-					newFlow()
+					newFlow(req)
 				}}>
 				<input
 					type="number"
 					placeholder="Valor"
 					step="any"
+					min="0.01"
 					required
 					onChange={e =>
 						setFlowData({ ...flowData, value: e.target.value })
@@ -62,7 +81,7 @@ export default function NewFlow() {
 					}
 				/>
 				<button type="submit">
-					Salvar {type === "inflow" ? "Entrada" : "Saída"}
+					Salvar {type === "inflow" ? "entrada" : "saída"}
 				</button>
 			</form>
 		</S.Main>

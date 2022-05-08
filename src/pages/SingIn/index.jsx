@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import axios from "axios"
 import dotenv from "dotenv"
 
 import { AuthContext } from "../../providers/AuthProvider"
 import LogoAnimation from "../../components/LogoAnimation"
-
+import DeleteAnimation from "../../components/DeleteAnimation"
 import * as S from "./styles"
 dotenv.config()
 console.log(dotenv.config())
@@ -20,10 +20,15 @@ export default function SingIn() {
 		setIsLoading,
 		setErrorWarning,
 	} = useContext(AuthContext)
-	const [dataUser, setDataUser] = useState({
-		email: "lucas@gmail.com",
-		password: "testes",
-	})
+	const [dataUser, setDataUser] = useState({})
+	useEffect(() => {
+		if (user) navigate("/flows")
+		else if (localStorage.getItem("user")) {
+			setUser(JSON.parse(localStorage.getItem("user")))
+			navigate("/flows")
+		}
+	}, [user])
+
 	function singIn(e) {
 		e.preventDefault()
 		// signIn(dataUser)
@@ -42,6 +47,7 @@ export default function SingIn() {
 				setErrorWarning(data)
 			})
 	}
+
 	return (
 		<S.SingIn>
 			<LogoAnimation style={S.LogoStyle} />
@@ -50,7 +56,6 @@ export default function SingIn() {
 				<input
 					type="email"
 					placeholder="E-mail"
-					defaultValue={dataUser.email}
 					onChange={e =>
 						setDataUser({ ...dataUser, email: e.target.value })
 					}
@@ -58,7 +63,6 @@ export default function SingIn() {
 				<input
 					type="password"
 					placeholder="Senha"
-					defaultValue={dataUser.password}
 					onChange={e =>
 						setDataUser({ ...dataUser, password: e.target.value })
 					}
