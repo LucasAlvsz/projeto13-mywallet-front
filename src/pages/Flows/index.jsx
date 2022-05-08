@@ -16,7 +16,7 @@ export default function Flows() {
 	useEffect(() => {
 		if (user) {
 			axios
-				.get(`http://localhost:5000/flows`, {
+				.get(`https://mywallet-api-project.herokuapp.com/flows`, {
 					headers: {
 						Authorization: `Bearer ${user.token}`,
 					},

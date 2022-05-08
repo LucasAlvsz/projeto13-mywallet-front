@@ -17,7 +17,10 @@ export default function SingUp() {
 		e.preventDefault()
 		const userDataReq = { ...userData, repeatPassword: userData.password }
 		axios
-			.post(`http://localhost:5000/singup`, userDataReq)
+			.post(
+				`https://mywallet-api-project.herokuapp.com/singup`,
+				userDataReq
+			)
 			.then(({ data }) => {
 				console.log(data)
 				navigate("/singin")

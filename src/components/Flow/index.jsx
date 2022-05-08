@@ -34,11 +34,14 @@ export default function Flow({
 		)
 			return -1
 		axios
-			.delete(`http://localhost:5000/flows/${flowId}`, {
-				headers: {
-					Authorization: `Bearer ${user.token}`,
-				},
-			})
+			.delete(
+				`https://mywallet-api-project.herokuapp.com/flows/${flowId}`,
+				{
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+				}
+			)
 			.then(() => {
 				update()
 			})

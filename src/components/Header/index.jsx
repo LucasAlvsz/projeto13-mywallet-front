@@ -18,11 +18,15 @@ export default function Header({ userName }) {
 				className="LogoutButton"
 				onClick={() => {
 					axios
-						.post("http://localhost:5000/singout", "", {
-							headers: {
-								Authorization: `Bearer ${user.token}`,
-							},
-						})
+						.post(
+							"https://mywallet-api-project.herokuapp.com/singout",
+							"",
+							{
+								headers: {
+									Authorization: `Bearer ${user.token}`,
+								},
+							}
+						)
 						.then(() => {
 							setUser(null)
 							localStorage.removeItem("user")
