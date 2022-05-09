@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
 				.then(({ data }) => {
 					setUser(data)
 					localStorage.setItem("user", JSON.stringify(data))
-					console.log(data)
 					setIsLoading(false)
 					setErrorWarning(false)
 				})

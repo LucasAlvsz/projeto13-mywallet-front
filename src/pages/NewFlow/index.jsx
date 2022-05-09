@@ -111,18 +111,23 @@ export default function NewFlow() {
 				) : (
 					""
 				)}
-				<button type="submit">
-					{isLoading ? (
-						<ButtonLoading />
-					) : req === "post" ? (
-						`Salvar nova ${
-							flowData.type === "inflow" ? "entrada" : "saída"
-						}`
-					) : (
-						"Salvar edição"
-					)}
-				</button>
+				<div className="buttons">
+					<button type="submit">
+						{isLoading ? (
+							<ButtonLoading />
+						) : req === "post" ? (
+							`Salvar nova ${
+								flowData.type === "inflow" ? "entrada" : "saída"
+							}`
+						) : (
+							"Salvar edição"
+						)}
+					</button>
+
+					<button onClick={() => navigate("/flows")}>Cancelar</button>
+				</div>
 			</form>
+
 			{errorWarning ? (
 				<S.ErrorWarning>{errorWarning}</S.ErrorWarning>
 			) : (

@@ -66,7 +66,7 @@ export const FlowTotal = styled.div`
 		font-style: normal;
 		font-size: 17px;
 		line-height: 20px;
-		color: ${({ total }) => (total > 0 ? "#03ac00" : "#C70000")};
+		color: ${({ total }) => (total >= 0 ? "#03ac00" : "#C70000")};
 		&:first-child {
 			font-weight: 700;
 			color: #000;

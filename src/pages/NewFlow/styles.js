@@ -51,6 +51,12 @@ export const Main = styled.main`
 		background: ${({ isLoading }) => (isLoading ? "#d69ccf" : "#fff")};
 		pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
 	}
+	.buttons {
+		/* width: 100%; */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 	button {
 		width: 100%;
 		height: 46px;
@@ -62,6 +68,11 @@ export const Main = styled.main`
 		color: #fff;
 		cursor: ${({ isLoading }) => (isLoading ? "wait" : "pointer")};
 		padding: ${({ isLoading }) => (isLoading ? "14px" : "0")} 0px;
+		&:last-child {
+			width: 100px;
+			margin-top: 13px;
+			background: #8c11be;
+		}
 	}
 `
 
