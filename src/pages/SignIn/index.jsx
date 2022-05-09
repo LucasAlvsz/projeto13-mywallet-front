@@ -47,7 +47,7 @@ export default function SignIn() {
 					Entrar
 				</button>
 			</S.SingInForm>
-			<Link to="/singup">Primeira vez? Cadastre-se!</Link>
+			<Link to="/signUp">Primeira vez? Cadastre-se!</Link>
 			{errorWarning ? (
 				<S.ErrorWarning>{errorWarning}</S.ErrorWarning>
 			) : null}
