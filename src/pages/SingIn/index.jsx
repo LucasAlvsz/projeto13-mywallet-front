@@ -8,8 +8,7 @@ import LogoAnimation from "../../components/LogoAnimation"
 import DeleteAnimation from "../../components/DeleteAnimation"
 import * as S from "./styles"
 dotenv.config()
-console.log(dotenv.config())
-console.log(process.env)
+
 export default function SingIn() {
 	const navigate = useNavigate()
 	const {
