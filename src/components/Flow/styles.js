@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components"
 
 const shake = keyframes`
-	 0% { transform: translate(1px, 1px) rotate(0deg); }
+	0% { transform: translate(1px, 1px) rotate(0deg); }
   10% { transform: translate(-1px, -2px) rotate(-1deg); }
   20% { transform: translate(-1.5px, 0px) rotate(1deg); }
   30% { transform: translate(1.5px, 2px) rotate(0deg); }
@@ -42,7 +42,6 @@ export const Flow = styled.div`
 		:hover {
 			cursor: pointer;
 			animation: ${shake} 0.5s;
-			/* animation-iteration-count: 5; */
 		}
 	}
 `

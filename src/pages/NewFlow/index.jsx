@@ -4,13 +4,22 @@ import axios from "axios"
 
 import { AuthContext } from "../../providers/AuthProvider"
 
+import ButtonLoading from "../../components/ButtonLoading"
+
 import * as S from "./styles"
 
 export default function NewFlow() {
 	const navigate = useNavigate()
-	const { user, setUser } = useContext(AuthContext)
 	const {
-		state: { type, total, req, flowId, description, value },
+		user,
+		setUser,
+		isLoading,
+		setIsLoading,
+		errorWarning,
+		setErrorWarning,
+	} = useContext(AuthContext)
+	const {
+		state: { type, req, flowId, description, value },
 	} = useLocation()
 	const [flowData, setFlowData] = useState({ type, description, value })
 	useEffect(() => {
@@ -19,45 +28,44 @@ export default function NewFlow() {
 		else navigate("/")
 	}, [])
 	function newFlow(req) {
-		console.log(flowData)
 		if (req === "post") {
 			axios
-				.post(
-					"https://mywallet-api-project.herokuapp.com/flows",
-					flowData,
-					{
-						headers: {
-							Authorization: `Bearer ${user.token}`,
-						},
-					}
-				)
-				.then(({ data }) => {
+				.post(`${process.env.REACT_APP_URI}/flows`, flowData, {
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+				})
+				.then(() => {
 					navigate("/flows")
+					setIsLoading(false)
+					setErrorWarning(false)
 				})
 				.catch(({ response: { data } }) => {
+					setIsLoading(false)
+					setErrorWarning(data)
 					console.log(data)
 				})
 		} else if (req === "put") {
 			axios
-				.put(
-					`https://mywallet-api-project.herokuapp.com/flows/${flowId}`,
-					flowData,
-					{
-						headers: {
-							Authorization: `Bearer ${user.token}`,
-						},
-					}
-				)
+				.put(`${process.env.REACT_APP_URI}/flows/${flowId}`, flowData, {
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+				})
 				.then(() => {
 					navigate("/flows")
+					setIsLoading(false)
+					setErrorWarning(false)
 				})
 				.catch(({ response: { data } }) => {
+					setIsLoading(false)
+					setErrorWarning(data)
 					console.log(data)
 				})
 		}
 	}
 	return (
-		<S.Main>
+		<S.Main isLoading={isLoading}>
 			<h1>
 				{req === "post" ? "Nova " : "Editar "}
 				{type === "inflow" ? "entrada" : "saída"}
@@ -65,6 +73,7 @@ export default function NewFlow() {
 			<form
 				onSubmit={e => {
 					e.preventDefault()
+					setIsLoading(true)
 					newFlow(req)
 				}}>
 				<input
@@ -103,9 +112,22 @@ export default function NewFlow() {
 					""
 				)}
 				<button type="submit">
-					Salvar {type === "inflow" ? "entrada" : "saída"}
+					{isLoading ? (
+						<ButtonLoading />
+					) : req === "post" ? (
+						`Salvar nova ${
+							flowData.type === "inflow" ? "entrada" : "saída"
+						}`
+					) : (
+						"Salvar edição"
+					)}
 				</button>
 			</form>
+			{errorWarning ? (
+				<S.ErrorWarning>{errorWarning}</S.ErrorWarning>
+			) : (
+				""
+			)}
 		</S.Main>
 	)
 }

@@ -13,8 +13,19 @@ export const Header = styled.header`
 		font-size: 26px;
 		line-height: 31px;
 		color: #ffffff;
+		margin-left: 60px;
 	}
 	.LogoutButton {
 		margin-bottom: 5px;
 	}
+	.logo-and-name {
+		top: 5px;
+		left: 20px;
+		position: absolute;
+	}
 `
+
+export const LogoStyle = {
+	width: "65px",
+	height: "65px",
+}

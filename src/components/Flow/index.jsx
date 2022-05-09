@@ -17,14 +17,14 @@ export default function Flow({
 	update,
 }) {
 	const navigate = useNavigate()
-	const { user, setUser } = useContext(AuthContext)
+	const { user, setUser, isLoading, setIsLoading } = useContext(AuthContext)
 	useEffect(() => {
 		if (localStorage.getItem("user"))
 			setUser(JSON.parse(localStorage.getItem("user")))
 		else navigate("/")
 	}, [])
 	function deleteFlow(flowId) {
-		console.log("delete")
+		setIsLoading(true)
 		if (
 			!window.confirm(
 				`Deseja deletar o fluxo ${
@@ -34,15 +34,13 @@ export default function Flow({
 		)
 			return -1
 		axios
-			.delete(
-				`https://mywallet-api-project.herokuapp.com/flows/${flowId}`,
-				{
-					headers: {
-						Authorization: `Bearer ${user.token}`,
-					},
-				}
-			)
+			.delete(`${process.env.REACT_APP_URI}/flows/${flowId}`, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+			})
 			.then(() => {
+				setIsLoading(false)
 				update()
 			})
 			.catch(err => {

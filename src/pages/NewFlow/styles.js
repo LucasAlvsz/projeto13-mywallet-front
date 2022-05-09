@@ -24,6 +24,8 @@ export const Main = styled.main`
 		color: #000;
 		padding: 18px 15px;
 		margin-bottom: 13px;
+		background: ${({ isLoading }) => (isLoading ? "#d69ccf" : "#fff")};
+		pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
 		&::placeholder {
 			font-weight: 400;
 		}
@@ -46,6 +48,8 @@ export const Main = styled.main`
 		&::placeholder {
 			font-weight: 400;
 		}
+		background: ${({ isLoading }) => (isLoading ? "#d69ccf" : "#fff")};
+		pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
 	}
 	button {
 		width: 100%;
@@ -56,5 +60,17 @@ export const Main = styled.main`
 		font-size: 20px;
 		line-height: 23px;
 		color: #fff;
+		cursor: ${({ isLoading }) => (isLoading ? "wait" : "pointer")};
+		padding: ${({ isLoading }) => (isLoading ? "14px" : "0")} 0px;
 	}
+`
+
+export const ErrorWarning = styled.p`
+	font-family: "Raleway", sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 18px;
+	text-align: center;
+	color: #fff;
+	margin-top: 36px;
 `

@@ -14,7 +14,7 @@ export default function LogoAnimation({ style }) {
 		style,
 		initialSegment: [50, 101],
 	})
-	const { View, playSegments, pause } = useLottie(options)
+	const { View, playSegments } = useLottie(options)
 	const controller = () => {
 		if (isLoading)
 			setOptions({

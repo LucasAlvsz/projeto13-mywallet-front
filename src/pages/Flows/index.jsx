@@ -10,13 +10,14 @@ import { AuthContext } from "../../providers/AuthProvider"
 import * as S from "./styles"
 
 export default function Flows() {
+	const { user, setUser, setIsLoading } = useContext(AuthContext)
 	const [flows, setFlows] = useState([])
 	const [update, setUpdate] = useState(false)
-	const { user, setUser } = useContext(AuthContext)
 	useEffect(() => {
 		if (user) {
+			setIsLoading(true)
 			axios
-				.get(`https://mywallet-api-project.herokuapp.com/flows`, {
+				.get(`${process.env.REACT_APP_URI}/flows`, {
 					headers: {
 						Authorization: `Bearer ${user.token}`,
 					},
@@ -29,43 +30,44 @@ export default function Flows() {
 							: (total -= parseFloat(value))
 					)
 					total = total.toFixed(2)
-
 					setFlows({ data, ...(data.length && { total }) })
+					setIsLoading(false)
 				})
 				.catch(err => {
 					console.log(err)
+					setIsLoading(false)
 				})
 		} else if (localStorage.getItem("user"))
 			setUser(JSON.parse(localStorage.getItem("user")))
 	}, [user, update])
-
-	function getFlows() {}
 	return (
 		<>
 			<Header userName={user ? user.name : ""} />
 			<S.Main>
-				<S.FlowsContainer data={flows}>
-					{flows && flows.data
-						? flows.data.map(
-								({
-									flowId,
-									value,
-									description,
-									type,
-									date,
-								}) => (
-									<Flow
-										key={flowId}
-										flowId={flowId}
-										value={value}
-										description={description}
-										type={type}
-										date={date}
-										update={() => setUpdate(!update)}
-									/>
-								)
-						  )
-						: ""}
+				<S.Activity>
+					<S.FlowsContainer data={flows}>
+						{flows && flows.data
+							? flows.data.map(
+									({
+										flowId,
+										value,
+										description,
+										type,
+										date,
+									}) => (
+										<Flow
+											key={flowId}
+											flowId={flowId}
+											value={value}
+											description={description}
+											type={type}
+											date={date}
+											update={() => setUpdate(!update)}
+										/>
+									)
+							  )
+							: ""}
+					</S.FlowsContainer>
 					{flows && !flows.total ? (
 						<div className="total">
 							Não há registros de <br />
@@ -77,9 +79,9 @@ export default function Flows() {
 							<p>{flows ? flows.total : ""}</p>
 						</S.FlowTotal>
 					)}
-				</S.FlowsContainer>
+				</S.Activity>
 			</S.Main>
-			<Footer total={flows.total} />
+			<Footer />
 		</>
 	)
 }

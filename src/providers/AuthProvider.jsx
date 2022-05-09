@@ -1,21 +1,23 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
 import axios from "axios"
-import dotenv from "dotenv"
-dotenv.config()
 
 export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState(null)
+	const [user, setUser] = useState(() => {})
 	const [errorWarning, setErrorWarning] = useState(null)
 	const [isLoading, setIsLoading] = useState(false)
+	useEffect(() => {
+		if (!user && localStorage.getItem("user"))
+			setUser(JSON.parse(localStorage.getItem("user")))
+	}, [user])
 	const signIn = user => {
 		setIsLoading(true)
 		if (localStorage.getItem("user"))
 			setUser(JSON.parse(localStorage.getItem("user")))
 		else {
 			axios
-				.post(`http://localhost:5000/singin`, user)
+				.post(`${process.env.REACT_APP_URI}/signIn`, user)
 				.then(({ data }) => {
 					setUser(data)
 					localStorage.setItem("user", JSON.stringify(data))
@@ -31,23 +33,6 @@ export const AuthProvider = ({ children }) => {
 		}
 	}
 
-	const signOut = () => {
-		localStorage.removeItem("user")
-		setUser(null)
-	}
-
-	const singUp = user => {
-		axios
-			.post(`${process.env.API_URL}/signup`, user)
-			.then(() => {
-				console.log("Usuário criado com sucesso!")
-			})
-			.catch(err => {
-				console.log(err)
-				return err
-			})
-	}
-
 	return (
 		<AuthContext.Provider
 			value={{
@@ -58,8 +43,6 @@ export const AuthProvider = ({ children }) => {
 				setUser,
 				setIsLoading,
 				signIn,
-				signOut,
-				singUp,
 			}}>
 			{children}
 		</AuthContext.Provider>

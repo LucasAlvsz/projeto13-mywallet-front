@@ -7,17 +7,20 @@ export const Main = styled.main`
 	flex-direction: column;
 	padding: 0 25px;
 `
-
-export const FlowsContainer = styled.div`
+export const Activity = styled.section`
 	width: 100%;
 	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	position: relative;
 	background: #fff;
 	border-radius: 5px;
 	margin-top: 22px;
-	padding: 23px 12px;
+	padding: 20px 0px 10px 12px;
 	.total {
 		width: 100%;
+		height: 20px;
 		position: absolute;
 		top: 45%;
 		font-family: "Raleway";
@@ -30,20 +33,40 @@ export const FlowsContainer = styled.div`
 		padding-right: 23px;
 	}
 `
+export const FlowsContainer = styled.div`
+	width: 100%;
+	max-height: calc(100vh - 280px);
+	overflow-y: scroll;
+	overflow-x: hidden;
+	background: #fff;
+	border-radius: 5px;
+	::-webkit-scrollbar {
+		width: 20px;
+	}
+
+	::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 10px 10px #fff;
+		border: solid 10px #fff;
+	}
+
+	::-webkit-scrollbar-thumb {
+		box-shadow: inset 0 0 10px 10px #a328d6;
+		border: solid 10px #fff;
+		border-radius: 30px;
+	}
+`
 export const FlowTotal = styled.div`
 	width: 100%;
 	height: auto;
-	position: absolute;
-	bottom: 10px;
 	display: flex;
 	justify-content: space-between;
+	padding-right: 10px;
 	p {
 		font-family: "Raleway";
 		font-style: normal;
 		font-size: 17px;
 		line-height: 20px;
 		color: ${({ total }) => (total > 0 ? "#03ac00" : "#C70000")};
-		margin-right: 23px;
 		&:first-child {
 			font-weight: 700;
 			color: #000;

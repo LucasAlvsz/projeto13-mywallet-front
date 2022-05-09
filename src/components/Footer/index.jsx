@@ -4,7 +4,7 @@ import { ReactComponent as MinusButton } from "../../assets/icons/minus.svg"
 
 import * as S from "./styles"
 
-export default function Footer({ total }) {
+export default function Footer() {
 	const navigate = useNavigate()
 	return (
 		<S.Footer>
@@ -24,7 +24,7 @@ export default function Footer({ total }) {
 				<MinusButton
 					onClick={() => {
 						navigate("/newflow", {
-							state: { type: "outflow", req: "post", total },
+							state: { type: "outflow", req: "post" },
 						})
 					}}
 				/>
