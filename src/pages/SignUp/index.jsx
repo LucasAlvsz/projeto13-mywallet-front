@@ -26,7 +26,7 @@ export default function SignUp() {
 			.post(`${process.env.REACT_APP_URI}/singup`, userDataReq)
 			.then(({ data }) => {
 				console.log(data)
-				navigate("/singin")
+				navigate("/signin")
 			})
 			.catch(({ response: { data } }) => {
 				console.log(data)
