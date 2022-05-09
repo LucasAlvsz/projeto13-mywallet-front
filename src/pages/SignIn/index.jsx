@@ -3,15 +3,17 @@ import { useContext, useState, useEffect } from "react"
 
 import { AuthContext } from "../../providers/AuthProvider"
 import LogoAnimation from "../../components/LogoAnimation"
+import ButtonLoading from "../../components/ButtonLoading"
 
 import * as S from "./styles"
 
 export default function SignIn() {
 	const navigate = useNavigate()
-	const { setUser, user, isLoading, errorWarning, signIn } =
+	const { setUser, user, isLoading, setErrorWarning, errorWarning, signIn } =
 		useContext(AuthContext)
 	const [dataUser, setDataUser] = useState({})
 	useEffect(() => {
+		setErrorWarning(false)
 		if (user) navigate("/flows")
 		else if (localStorage.getItem("user")) {
 			setUser(JSON.parse(localStorage.getItem("user")))
@@ -46,10 +48,12 @@ export default function SignIn() {
 					}
 				/>
 				<button type="submit" disabled={isLoading}>
-					Entrar
+					{isLoading ? <ButtonLoading /> : "Entrar"}
 				</button>
 			</S.SingInForm>
-			<Link to="/signUp">Primeira vez? Cadastre-se!</Link>
+			<Link to="/signUp" onClick={() => setErrorWarning(false)}>
+				Primeira vez? Cadastre-se!
+			</Link>
 			{errorWarning ? (
 				<S.ErrorWarning>{errorWarning}</S.ErrorWarning>
 			) : null}

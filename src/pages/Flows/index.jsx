@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 import { useState, useContext, useEffect } from "react"
 
 import Header from "../../components/Header"
@@ -10,6 +11,7 @@ import { AuthContext } from "../../providers/AuthProvider"
 import * as S from "./styles"
 
 export default function Flows() {
+	const navigate = useNavigate()
 	const { user, setUser, isLoading, setIsLoading } = useContext(AuthContext)
 	const [flows, setFlows] = useState([])
 	const [update, setUpdate] = useState(false)
@@ -39,6 +41,7 @@ export default function Flows() {
 				})
 		} else if (localStorage.getItem("user"))
 			setUser(JSON.parse(localStorage.getItem("user")))
+		else navigate("/")
 	}, [user, update])
 	return (
 		<>

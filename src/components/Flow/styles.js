@@ -40,8 +40,8 @@ export const Flow = styled.div`
 		top: -1.5px;
 		right: -5px;
 		:hover {
-			cursor: pointer;
-			animation: ${shake} 0.5s;
+			cursor: ${({ isLoading }) => (isLoading ? "default" : "pointer")};
+			animation: ${({ isLoading }) => (isLoading ? "" : shake)} 0.5s;
 		}
 	}
 `
@@ -53,6 +53,7 @@ export const FlowDescription = styled.p`
 	color: #000;
 	font-family: "Raleway";
 	margin-left: 10px;
+	cursor: text;
 `
 export const FlowValue = styled.p`
 	font-family: "Raleway";

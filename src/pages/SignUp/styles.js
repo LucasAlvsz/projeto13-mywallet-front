@@ -57,9 +57,27 @@ export const SingUpForm = styled.form`
 			color: #000000;
 			font-weight: 400;
 		}
+		&:nth-child(2) {
+			border: 3px solid
+				${({ isError }) =>
+					isError && isError[0] === '"email" must be a valid email'
+						? "tomato"
+						: "#fff"};
+			animation: ${({ isError }) =>
+					isError && isError[0] === '"email" must be a valid email'
+						? shake
+						: ""}
+				0.3s;
+		}
 		&:nth-child(4) {
-			border: 3px solid ${({ isError }) => (isError ? "tomato" : "#fff")};
-			animation: ${({ isError }) => (isError ? shake : "")} 0.3s;
+			border: 3px solid
+				${({ isError }) =>
+					isError === "As senhas não correspondem"
+						? "tomato"
+						: "#fff"};
+			animation: ${({ isError }) =>
+					isError === "As senhas não correspondem" ? shake : ""}
+				0.3s;
 		}
 	}
 	button {

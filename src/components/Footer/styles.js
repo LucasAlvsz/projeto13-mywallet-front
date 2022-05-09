@@ -8,7 +8,7 @@ export const Footer = styled.footer`
 	padding: 14px 0 0 25px;
 `
 
-export const FlowContainer = styled.div`
+export const NewFlowContainer = styled.div`
 	width: 155px;
 	height: 114px;
 	display: flex;
@@ -18,6 +18,8 @@ export const FlowContainer = styled.div`
 	border-radius: 5px;
 	padding: 10px;
 	margin-right: 15px;
+	pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
+	cursor: ${({ isLoading }) => (isLoading ? "default" : "pointer")};
 	p {
 		font-family: "Raleway";
 		font-weight: 700;

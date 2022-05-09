@@ -7,6 +7,7 @@ export default createGlobalStyle`
         box-sizing: border-box;
         outline: 0;
         font-family: 'Raleway', sans-serif;
+        
     }
     button {
         cursor: pointer;
@@ -25,5 +26,11 @@ export default createGlobalStyle`
     }
     main{
         overflow: auto;
+    }
+    h1{
+        cursor: default;
+    }
+    p{
+        cursor: default;
     }
 `

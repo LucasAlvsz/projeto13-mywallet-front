@@ -71,7 +71,7 @@ export default function Flow({
 				</S.FlowDescription>
 			</div>
 			<div className="value-and-close">
-				<S.FlowValue type={type}>
+				<S.FlowValue type={type} isLoading={isLoading}>
 					R$ {value % 1 === 0 ? value + ".00" : value}
 					<CloseButton
 						className="close-button"

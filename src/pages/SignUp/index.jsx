@@ -10,7 +10,8 @@ import * as S from "./styles"
 
 export default function SignUp() {
 	const navigate = useNavigate()
-	const { isLoading, errorWarning, setErrorWarning } = useContext(AuthContext)
+	const { isLoading, setIsLoading, errorWarning, setErrorWarning } =
+		useContext(AuthContext)
 	const [userData, setUserData] = useState({ password: "" })
 
 	function nameValidation(name) {
@@ -21,14 +22,19 @@ export default function SignUp() {
 	}
 	const signUp = e => {
 		e.preventDefault()
+		if (errorWarning === "As senhas não correspondem") return -1
+		setIsLoading(true)
 		const userDataReq = { ...userData, repeatPassword: userData.password }
 		axios
 			.post(`${process.env.REACT_APP_URI}/signup`, userDataReq)
 			.then(({ data }) => {
 				console.log(data)
+				setIsLoading(false)
 				navigate("/signin")
 			})
 			.catch(({ response: { data } }) => {
+				setIsLoading(false)
+				setErrorWarning(data)
 				console.log(data)
 			})
 	}
@@ -83,7 +89,9 @@ export default function SignUp() {
 					{isLoading ? <ButtonLoading /> : "Cadastrar"}
 				</button>
 			</S.SingUpForm>
-			<Link to="/">Já tem uma conta? Entre agora!</Link>
+			<Link to="/" onClick={() => setErrorWarning(false)}>
+				Já tem uma conta? Entre agora!
+			</Link>
 			<S.ErrorWarning>{errorWarning}</S.ErrorWarning>
 		</S.SingUp>
 	)
