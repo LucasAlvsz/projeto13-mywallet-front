@@ -23,7 +23,7 @@ export default function SignUp() {
 		e.preventDefault()
 		const userDataReq = { ...userData, repeatPassword: userData.password }
 		axios
-			.post(`${process.env.REACT_APP_URI}/singup`, userDataReq)
+			.post(`${process.env.REACT_APP_URI}/signup`, userDataReq)
 			.then(({ data }) => {
 				console.log(data)
 				navigate("/signin")
