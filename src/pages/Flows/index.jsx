@@ -10,7 +10,7 @@ import { AuthContext } from "../../providers/AuthProvider"
 import * as S from "./styles"
 
 export default function Flows() {
-	const { user, setUser, setIsLoading } = useContext(AuthContext)
+	const { user, setUser, isLoading, setIsLoading } = useContext(AuthContext)
 	const [flows, setFlows] = useState([])
 	const [update, setUpdate] = useState(false)
 	useEffect(() => {
@@ -45,7 +45,7 @@ export default function Flows() {
 			<Header userName={user ? user.name : ""} />
 			<S.Main>
 				<S.Activity>
-					<S.FlowsContainer data={flows}>
+					<S.FlowsContainer isLoading={isLoading}>
 						{flows && flows.data
 							? flows.data.map(
 									({

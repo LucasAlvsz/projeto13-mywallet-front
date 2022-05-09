@@ -31,8 +31,10 @@ export default function Flow({
 					type === "inflow" ? "entrada" : "saída"
 				}?`
 			)
-		)
+		) {
+			setIsLoading(false)
 			return -1
+		}
 		axios
 			.delete(`${process.env.REACT_APP_URI}/flows/${flowId}`, {
 				headers: {
@@ -44,6 +46,8 @@ export default function Flow({
 				update()
 			})
 			.catch(err => {
+				setIsLoading(false)
+				update()
 				console.log(err)
 			})
 	}

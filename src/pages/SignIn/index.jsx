@@ -32,6 +32,7 @@ export default function SignIn() {
 				<input
 					type="email"
 					placeholder="E-mail"
+					required
 					onChange={e =>
 						setDataUser({ ...dataUser, email: e.target.value })
 					}
@@ -39,6 +40,7 @@ export default function SignIn() {
 				<input
 					type="password"
 					placeholder="Senha"
+					required
 					onChange={e =>
 						setDataUser({ ...dataUser, password: e.target.value })
 					}

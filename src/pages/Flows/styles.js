@@ -40,6 +40,7 @@ export const FlowsContainer = styled.div`
 	overflow-x: hidden;
 	background: #fff;
 	border-radius: 5px;
+	pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
 	::-webkit-scrollbar {
 		width: 20px;
 	}

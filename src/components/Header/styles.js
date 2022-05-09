@@ -17,6 +17,7 @@ export const Header = styled.header`
 	}
 	.LogoutButton {
 		margin-bottom: 5px;
+		cursor: pointer;
 	}
 	.logo-and-name {
 		top: 5px;
