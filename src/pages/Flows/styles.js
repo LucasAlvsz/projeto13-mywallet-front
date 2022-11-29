@@ -37,7 +37,6 @@ export const FlowsContainer = styled.div`
 	width: 100%;
 	max-height: calc(100vh - 280px);
 	overflow-y: scroll;
-	overflow-x: hidden;
 	background: #fff;
 	border-radius: 5px;
 	pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};

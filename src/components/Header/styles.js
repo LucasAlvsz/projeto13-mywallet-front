@@ -18,6 +18,10 @@ export const Header = styled.header`
 	.LogoutButton {
 		margin-bottom: 5px;
 		cursor: pointer;
+		:hover {
+			transition: all 0.2s ease-in-out;
+			transform: scale(1.2);
+		}
 	}
 	.logo-and-name {
 		top: 5px;

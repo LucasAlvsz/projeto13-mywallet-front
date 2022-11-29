@@ -62,6 +62,7 @@ export default function SignUp() {
 				<input
 					type="email"
 					placeholder="E-mail"
+					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
 					required
 					onChange={e =>
 						setUserData({ ...userData, email: e.target.value })
@@ -89,10 +90,10 @@ export default function SignUp() {
 					{isLoading ? <ButtonLoading /> : "Cadastrar"}
 				</button>
 			</S.SingUpForm>
+			<S.ErrorWarning>{errorWarning}</S.ErrorWarning>
 			<Link to="/" onClick={() => setErrorWarning(false)}>
 				Já tem uma conta? Entre agora!
 			</Link>
-			<S.ErrorWarning>{errorWarning}</S.ErrorWarning>
 		</S.SingUp>
 	)
 }

@@ -34,6 +34,7 @@ export default function SignIn() {
 				<input
 					type="email"
 					placeholder="E-mail"
+					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
 					required
 					onChange={e =>
 						setDataUser({ ...dataUser, email: e.target.value })
@@ -51,12 +52,12 @@ export default function SignIn() {
 					{isLoading ? <ButtonLoading /> : "Entrar"}
 				</button>
 			</S.SingInForm>
-			<Link to="/signUp" onClick={() => setErrorWarning(false)}>
-				Primeira vez? Cadastre-se!
-			</Link>
 			{errorWarning ? (
 				<S.ErrorWarning>{errorWarning}</S.ErrorWarning>
 			) : null}
+			<Link to="/signUp" onClick={() => setErrorWarning(false)}>
+				Primeira vez? Cadastre-se!
+			</Link>
 		</S.SingIn>
 	)
 }

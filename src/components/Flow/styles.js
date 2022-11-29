@@ -17,6 +17,7 @@ const shake = keyframes`
 export const Flow = styled.div`
 	width: 100%;
 	height: 20px;
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -25,38 +26,44 @@ export const Flow = styled.div`
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 19px;
+	:hover {
+		transition: all 0.1s ease-in-out;
+		background: rgba(0, 0, 0, 0.1);
+		cursor: ${({ isLoading }) => (isLoading ? "not-allowed" : "pointer")};
+		pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
+	}
 	.date-and-descr {
 		display: flex;
 		font-family: "Raleway";
-	}
-	.value-and-close {
-		display: flex;
-		position: relative;
 	}
 	.close-button {
 		color: #c6c6c6;
 		width: 22.5px;
 		position: absolute;
-		top: -1.5px;
+		top: 0px;
 		right: -5px;
 		:hover {
 			cursor: ${({ isLoading }) => (isLoading ? "default" : "pointer")};
-			animation: ${({ isLoading }) => (isLoading ? "" : shake)} 0.5s;
+			transition: all 0.2s ease-in-out;
+			animation: ${({ isLoading }) => (isLoading ? shake : "none")} 0.5s;
+			color: tomato;
 		}
 	}
 `
 
 export const FlowDate = styled.p`
 	color: #c6c6c6;
+	cursor: ${({ isLoading }) => (isLoading ? "not-allowed" : "pointer")};
 `
 export const FlowDescription = styled.p`
 	color: #000;
 	font-family: "Raleway";
 	margin-left: 10px;
-	cursor: text;
+	cursor: ${({ isLoading }) => (isLoading ? "not-allowed" : "pointer")};
 `
 export const FlowValue = styled.p`
 	font-family: "Raleway";
 	color: ${({ type }) => (type === "outflow" ? "#C70000" : "#03AC00")};
 	margin-right: 20px;
+	cursor: ${({ isLoading }) => (isLoading ? "not-allowed" : "pointer")};
 `

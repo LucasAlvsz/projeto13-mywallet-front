@@ -18,13 +18,19 @@ export const NewFlowContainer = styled.div`
 	border-radius: 5px;
 	padding: 10px;
 	margin-right: 15px;
+	margin-bottom: 5px;
 	pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
 	cursor: ${({ isLoading }) => (isLoading ? "default" : "pointer")};
-	p {
+	:hover {
+		transition: all 0.2s ease-in-out;
+		transform: scale(1.05);
+	}
+	> p {
 		font-family: "Raleway";
 		font-weight: 700;
 		font-size: 17px;
 		line-height: 20px;
 		color: #ffffff;
+		cursor: ${({ isLoading }) => (isLoading ? "default" : "pointer")};
 	}
 `

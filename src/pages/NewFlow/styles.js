@@ -7,6 +7,13 @@ export const Main = styled.main`
 	flex-direction: column;
 	padding: 25px 25px;
 	font-family: "Raleway";
+	@media (min-width: 768px) {
+		align-items: center;
+		justify-content: center;
+		form {
+			width: 400px;
+		}
+	}
 	h1 {
 		font-weight: 700;
 		font-size: 26px;

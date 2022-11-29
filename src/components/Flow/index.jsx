@@ -52,33 +52,35 @@ export default function Flow({
 			})
 	}
 	return (
-		<S.Flow>
+		<S.Flow
+			isLoading={isLoading}
+			onClick={() =>
+				navigate("/newFlow", {
+					state: {
+						flowId,
+						description,
+						value,
+						type,
+						req: "put",
+					},
+				})
+			}>
 			<div className="date-and-descr">
 				<S.FlowDate>{date}</S.FlowDate>
-				<S.FlowDescription
-					onClick={() =>
-						navigate("/newFlow", {
-							state: {
-								flowId,
-								description,
-								value,
-								type,
-								req: "put",
-							},
-						})
-					}>
-					{description}
-				</S.FlowDescription>
+				<S.FlowDescription>{description}</S.FlowDescription>
 			</div>
-			<div className="value-and-close">
-				<S.FlowValue type={type} isLoading={isLoading}>
-					R$ {value % 1 === 0 ? value + ".00" : value}
-					<CloseButton
-						className="close-button"
-						onClick={() => deleteFlow(flowId)}
-					/>
-				</S.FlowValue>
-			</div>
+
+			<S.FlowValue type={type} isLoading={isLoading}>
+				R$ {value % 1 === 0 ? value + ".00" : value}
+			</S.FlowValue>
+
+			<CloseButton
+				className="close-button"
+				onClick={e => {
+					deleteFlow(flowId)
+					e.stopPropagation()
+				}}
+			/>
 		</S.Flow>
 	)
 }

@@ -23,6 +23,9 @@ export const SingIn = styled.main`
 		line-height: 18px;
 		color: #fff;
 		margin-top: 36px;
+		:hover {
+			text-decoration: underline;
+		}
 	}
 `
 export const SingInForm = styled.form`
@@ -54,6 +57,9 @@ export const SingInForm = styled.form`
 		font-weight: 700;
 		line-height: 23px;
 		cursor: ${({ isLoading }) => (isLoading ? "wait" : "pointer")};
+	}
+	@media (min-width: 768px) {
+		width: 400px;
 	}
 `
 export const ErrorWarning = styled.p`
