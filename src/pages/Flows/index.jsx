@@ -49,27 +49,25 @@ export default function Flows() {
 			<S.Main>
 				<S.Activity>
 					<S.FlowsContainer isLoading={isLoading}>
-						{flows && flows.data
-							? flows.data.map(
-									({
-										flowId,
-										value,
-										description,
-										type,
-										date,
-									}) => (
-										<Flow
-											key={flowId}
-											flowId={flowId}
-											value={value}
-											description={description}
-											type={type}
-											date={date}
-											update={() => setUpdate(!update)}
-										/>
-									)
-							  )
-							: ""}
+						{flows &&
+							flows.data &&
+							flows.data.map(
+								(
+									{ flowId, value, description, type, date },
+									index
+								) => (
+									<Flow
+										key={flowId}
+										flowId={flowId}
+										index={index}
+										value={value}
+										description={description}
+										type={type}
+										date={date}
+										update={() => setUpdate(!update)}
+									/>
+								)
+							)}
 					</S.FlowsContainer>
 					{flows && !flows.total ? (
 						<div className="total">

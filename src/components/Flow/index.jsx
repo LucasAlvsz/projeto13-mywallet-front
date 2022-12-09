@@ -9,6 +9,7 @@ import { AuthContext } from "../../providers/AuthProvider"
 import * as S from "./styles"
 
 export default function Flow({
+	index,
 	value,
 	description,
 	type,
@@ -53,6 +54,7 @@ export default function Flow({
 	}
 	return (
 		<S.Flow
+			index={index}
 			isLoading={isLoading}
 			onClick={() =>
 				navigate("/newFlow", {
@@ -70,7 +72,7 @@ export default function Flow({
 				<S.FlowDescription>{description}</S.FlowDescription>
 			</div>
 
-			<S.FlowValue type={type} isLoading={isLoading}>
+			<S.FlowValue index={index} type={type} isLoading={isLoading}>
 				R$ {value % 1 === 0 ? value + ".00" : value}
 			</S.FlowValue>
 

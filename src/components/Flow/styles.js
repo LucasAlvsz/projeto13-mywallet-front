@@ -16,7 +16,7 @@ const shake = keyframes`
 
 export const Flow = styled.div`
 	width: 100%;
-	height: 20px;
+	min-height: 20px;
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -26,6 +26,7 @@ export const Flow = styled.div`
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 19px;
+	background-color: ${({ index }) => (index % 2 === 0 ? "#fff" : "#f2f2f2")};
 	:hover {
 		transition: all 0.1s ease-in-out;
 		background: rgba(0, 0, 0, 0.1);
@@ -33,6 +34,8 @@ export const Flow = styled.div`
 		pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
 	}
 	.date-and-descr {
+		width: 100%;
+		height: 100%;
 		display: flex;
 		font-family: "Raleway";
 	}
@@ -62,6 +65,7 @@ export const FlowDescription = styled.p`
 	cursor: ${({ isLoading }) => (isLoading ? "not-allowed" : "pointer")};
 `
 export const FlowValue = styled.p`
+	flex-shrink: 0;
 	font-family: "Raleway";
 	color: ${({ type }) => (type === "outflow" ? "#C70000" : "#03AC00")};
 	margin-right: 20px;

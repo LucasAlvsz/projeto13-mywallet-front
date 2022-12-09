@@ -17,7 +17,7 @@ export const Activity = styled.section`
 	background: #fff;
 	border-radius: 5px;
 	margin-top: 22px;
-	padding: 20px 0px 10px 12px;
+	padding: 20px 5px 10px 12px;
 	.total {
 		width: 100%;
 		height: 20px;
@@ -40,8 +40,9 @@ export const FlowsContainer = styled.div`
 	background: #fff;
 	border-radius: 5px;
 	pointer-events: ${({ isLoading }) => (isLoading ? "none" : "auto")};
+
 	::-webkit-scrollbar {
-		width: 20px;
+		width: 10px;
 	}
 
 	::-webkit-scrollbar-track {
